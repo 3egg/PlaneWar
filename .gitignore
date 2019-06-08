@@ -57,3 +57,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties 
 .idea/
+Assets/scenes/Level1
+Assets/scenes/Level 1/ReflectionProbe-0.exr.meta
+Assets/scenes/Level 1/ReflectionProbe-0.exr
+Assets/scenes/Level 1/LightingData.asset.meta
+Assets/scenes/Level 1/LightingData.asset
+Assets/scenes/Level 1.meta

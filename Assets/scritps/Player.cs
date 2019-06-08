@@ -5,28 +5,35 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
-    [Tooltip("In ms^-1")] [SerializeField] private float xSpeed = 25f;
+    [Header("general")] [Tooltip("In ms^-1")] [SerializeField]
+    private float xSpeed = 25f;
+
     [Tooltip("In ms^-1")] [SerializeField] private float ySpeed = 30f;
     [Tooltip("In m")] [SerializeField] private float xRange = 25f;
     [Tooltip("In m")] [SerializeField] private float yRange = 15f;
 
-    [SerializeField] private float posPitch = 0.5f;
+    [Header("move")] [SerializeField] private float posPitch = 0.5f;
     [SerializeField] private float controllPitch = -25f;
-
     [SerializeField] private float posYawRoll = -2f;
     [SerializeField] private float controllYawRoll = -30f;
     private float xKey, yKey; //按键ad控制的速度即sensitivity
 
-    // Use this for initialization
-    void Start()
+    private bool isControlEnabled = true;
+
+
+    void OnPlayerDeath()
     {
+        isControlEnabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveXY();
-        RotationXY();
+        if (isControlEnabled)
+        {
+            MoveXY();
+            RotationXY();
+        }
     }
 
     private void RotationXY()
@@ -35,7 +42,7 @@ public class Player : MonoBehaviour
         //当飞机向上移动时, RX 也要往上偏移,偏移的大小根据按键的大小来判断
         float maxRX = transform.localPosition.y * posPitch; //当y到达了最高点,且停止了移动,3*-3 = -9f;
         float pitchCon = yKey * controllPitch; //根据按键的程度来偏移RX // 0
-        float pitch = maxRX + pitchCon;//-9f //最开始的时候, y = -2 , posPitch = -3f rx = 6 
+        float pitch = maxRX + pitchCon; //-9f //最开始的时候, y = -2 , posPitch = -3f rx = 6 
 
         float maxRY = transform.localPosition.y * posYawRoll;
         float yawCon = xKey * controllYawRoll;
